@@ -601,4 +601,44 @@ class AuthController extends Controller
         }
     }
 
+
+    public function current_time()
+    {
+        //Code for getting the current date of Asia/Manila
+        date_default_timezone_set('Asia/Taipei');
+        $todays_date = date("Y-m-d H:i:s");
+        $today = strtotime($todays_date);
+        $todayDate = date("Y-m-d H:i:s", $today); 
+        //Code for getting the current date of Asia/Manila
+
+
+        //This will identify if the active token is expired will automatically mark it as revoked = true
+        $tokenArray = Auth::user()->token()->id;
+        
+        $expires_query = DB::connection('mysql')->select("SELECT * from oauth_access_tokens WHERE id = '".$tokenArray."' AND user_id = '".auth()->user()->id."' AND expires_at <= '".$todayDate."' AND revoked = '0'");
+
+
+        if(!empty($expires_query))
+        {
+            DB::table('oauth_access_tokens')
+            ->where('expires_at', '<=',$todayDate)
+            ->update([
+            'revoked' => true
+            ]);
+            
+            return response(['status'=>'error','message'=>'Your Token is Expired!']);
+        }
+        else
+        {
+            return response([
+                'status'=>'oK',
+                'name'=>auth()->user()->name,
+                'companyID'=>auth()->user()->company_id,
+                'date'=>date("F d Y",strtotime(now())),
+                'time'=>date("h:i a",strtotime(now())),
+                'datetime'=>now()
+            ]);
+        }
+    }
+
 }

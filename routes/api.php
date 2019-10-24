@@ -37,4 +37,6 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/search_user','Auth\Api\AuthController@search_user');
 
+    Route::get('/current_time','Auth\Api\AuthController@current_time');
+
 });
