@@ -232,7 +232,7 @@ class AuthController extends Controller
 
             $validatedData = $request->validate([
 
-                'datetime'=>'required',
+                // 'datetime'=>'required',
                 'state'=>'required',
                 'deviceID'=>'required',
                 'address'=>'required',
@@ -254,7 +254,7 @@ class AuthController extends Controller
             // }else{
             //     $actRecords->type = $request->state;
             // }
-            
+            
             // // $actRecords->status = "NONE";
             // $actRecords->save();
 
@@ -264,7 +264,9 @@ class AuthController extends Controller
             $DTR->ACNo = $user_info->ACNo;//added
             $DTR->name = $user_info->name;
             $DTR->email = $user_info->email;
-            $DTR->datetime = $datetime;
+            // Version v1.0 datetime for app is required
+            // $DTR->datetime = $datetime;
+            $DTR->datetime = now();
             $DTR->state = $request->state; 
             $DTR->deviceID = $request->deviceID;
             $DTR->address = $request->address;
@@ -600,8 +602,6 @@ class AuthController extends Controller
             
         }
     }
-
-
     public function current_time()
     {
         //Code for getting the current date of Asia/Manila
@@ -640,5 +640,4 @@ class AuthController extends Controller
             ]);
         }
     }
-
 }
