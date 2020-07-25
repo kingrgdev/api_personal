@@ -8,6 +8,7 @@
 # <VirtualHost *:0902>
 #    DocumentRoot "/xampp/htdocs/api_company/public"
 #    ServerName localhost
-#    # Other directives here
+#    ## Other directives here
 # </VirtualHost>
 # Listen 0902
+
