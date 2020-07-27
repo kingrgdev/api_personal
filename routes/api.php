@@ -21,6 +21,8 @@ Route::post('/timekeeping','Auth\Api\AuthController@timekeeping');
 
 Route::post('/login','Auth\Api\AuthController@login');
 
+Route::get('/articles','Auth\Api\AuthController@getArticle');
+
 Route::middleware('auth:api')->group(function () {
 
     Route::post('/timekeeping_app','Auth\Api\AuthController@timekeeping_app');

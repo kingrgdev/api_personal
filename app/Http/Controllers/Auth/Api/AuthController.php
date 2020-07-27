@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth\Api;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Models\DateTimeAPI;
+use App\Models\Article;
 use App\ActivityRecords;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
@@ -316,5 +317,10 @@ class AuthController extends Controller
             'time'=>date("h:i a",strtotime(now())),
             'datetime'=>now()
         ]);
+    }
+
+    public function getArticle () {
+        $data = Article::orderBy('created_at','DESC')->paginate(1);
+        return $data;
     }
 }
